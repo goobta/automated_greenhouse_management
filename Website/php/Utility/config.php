@@ -9,4 +9,6 @@ class Config {
     public static $dbUsername = 'root';
     public static $dbPass = 'PingreenHouse2017';
     public static $dbName = 'events';
+
+    public static $bedCount = 6;
 }
