@@ -23,14 +23,15 @@ class Schedule {
             $result = $connection->query($query);
 
             if($result->num_rows > 0) {
+
+                $dayData = [];
+
                 while ($row = $result->fetch_assoc()) {
-                    echo "<tr>";
-                    echo "<td>" . $row["StartTime"] . "</td>";
-                    echo "<td>" . $row["Weekday"] . "</td>";
-                    echo "<td>" . $row["Duration"] . "</td>";
-                    echo "<td>" . $row["Pressure"] . "</td>";
-                    echo "</tr>";
+                    $dayData[] = $row;
                 }
+
+                
+
             }
             else {
                 echo "<tr><td>No Watering Schedule Set</td></tr>";
@@ -42,5 +43,29 @@ class Schedule {
     }
     public static function addEvent() {
 
+    }
+    public static function number_to_day($day_number) {
+        switch ($day_number) {
+            case 0:
+                return "Sunday";
+
+            case 1:
+                return "Monday";
+
+            case 2:
+                return "Tuesday";
+
+            case 3:
+                return "Wednesday";
+
+            case 4:
+                return "Thursday";
+
+            case 5:
+                return "Friday";
+
+            case 6:
+                return "Saturday";
+        }
     }
 }
