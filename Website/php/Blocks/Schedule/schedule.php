@@ -42,6 +42,7 @@ class Schedule {
                     echo "<td>" . Schedule::number_to_day($row["Weekday"]) . "</td>";
                     echo "<td>" . $row["StartTime"] . "</td>";
                     echo "<td>" . $row["Duration"] . "</td>";
+                    echo "<td><a href='php/Blocks/Schedule/updateEvent.php?id=" . $row['Id'] . "&wd=" . $row['Weekday'] . "&st=" . $row['StartTime'] . "&dur=" . $row['Duration'] . "'>Edit</a></td>";
                     echo "</tr>";
                 }
 

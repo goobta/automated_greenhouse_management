@@ -11,7 +11,7 @@
     <div id="container">
 
         <?php
-            include "php/Blocks/schedule.php";
+            include "php/Blocks/Schedule/schedule.php";
         ?>
 
         <div id="banner">
