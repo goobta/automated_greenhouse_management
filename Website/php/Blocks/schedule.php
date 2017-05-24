@@ -19,7 +19,7 @@ class Schedule {
         for($i = 1; $i <= Config::$bedCount; $i++) {
             echo '<tr class="header"><th>Bed ' . $i . ' <span>Show</span></th></tr>';
 
-            $query = "SELECT Id, Weekday, StartTime, Duration, Pressure FROM " . Config::$dbName . "." . Config::$dbTableName . " WHERE Bed LIKE " . $i;
+            $query = "SELECT Id, Weekday, StartTime, Duration FROM " . Config::$dbName . "." . Config::$dbTableName . " WHERE Bed LIKE " . $i;
             $result = $connection->query($query);
 
             if($result->num_rows > 0) {
@@ -30,7 +30,20 @@ class Schedule {
                     $dayData[] = $row;
                 }
 
-                
+                foreach($dayData as $key => $row) {
+                    $day[$key] = $row["Weekday"];
+                    $time[$key] = $row["StartTime"];
+                }
+
+                array_multisort($day, SORT_ASC, $time, SORT_ASC, $dayData);
+
+                foreach($dayData as $row) {
+                    echo "<tr>";
+                    echo "<td>" . Schedule::number_to_day($row["Weekday"]) . "</td>";
+                    echo "<td>" . $row["StartTime"] . "</td>";
+                    echo "<td>" . $row["Duration"] . "</td>";
+                    echo "</tr>";
+                }
 
             }
             else {
