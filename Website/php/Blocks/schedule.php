@@ -17,7 +17,7 @@ class Schedule {
         echo "<table>";
 
         for($i = 1; $i <= Config::$bedCount; $i++) {
-            echo "<tr class='header'><th>Bed " . $i . " <span>Show</span></th></tr>";
+            echo '<tr class="header"><th>Bed ' . $i . ' <span>Show</span></th></tr>';
 
 //            $query = "SELECT Id, Weekday, StartTime, Duration, Pressure FROM Events WHERE Bed LIKE " . $i;
 //            $result = $connection->query($query);

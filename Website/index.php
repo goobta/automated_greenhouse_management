@@ -2,6 +2,10 @@
 <head>
     <title>Pingree Greenhouse</title>
     <link rel="stylesheet" href="css/main.css" type="text/css">
+    <link rel="stylesheet" href="css/main.css" type="text/css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 </head>
 <body>
     <div id="container">
@@ -30,5 +34,7 @@
             ?>
         </div>
     </div>
+
+    <script src="scripts/schedule.js"></script>
 </body>
 </html>
