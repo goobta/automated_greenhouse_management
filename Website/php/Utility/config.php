@@ -6,9 +6,14 @@
 
 class Config {
     public static $dbHost = 'localhost';
+//    public static $dbUsername = 'PingServer';
+//    public static $dbPass = 'PingreenHouse2017';
+
     public static $dbUsername = 'root';
-    public static $dbPass = 'PingreenHouse2017';
-    public static $dbName = 'events';
+    public static $dbPass = 'root';
+
+    public static $dbName = 'PingreenHouse';
+    public static $dbTableName = "Events";
 
     public static $bedCount = 6;
 }
