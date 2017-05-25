@@ -10,8 +10,6 @@
         $id = $_GET['id'];
 
         Schedule::deleteEvent($id);
-
-        header('Location: ../../../index.php');
     ?>
 
     <script type="text/javascript">

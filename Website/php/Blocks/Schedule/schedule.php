@@ -56,7 +56,7 @@ class Schedule {
 
     }
     public static function addEvent() {
-
+        
     }
     public static function editEvent($id, $bed, $weekDay, $startTime, $duration) {
         $connection = new mysqli(Config::$dbHost, Config::$dbUsername, Config::$dbPass, Config::$dbName);

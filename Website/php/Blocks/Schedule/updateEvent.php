@@ -15,5 +15,9 @@
 
         Schedule::editEvent($id, $bedNumber, $weekDay, $startTime, $duration);
     ?>
+
+    <script type="text/javascript">
+        window.location = "../../../index.php";
+    </script>
 </body>
 </html>
