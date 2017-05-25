@@ -12,6 +12,8 @@
 
         <?php
             include "php/Blocks/Schedule/schedule.php";
+            include "php/Utility/config.php";
+
         ?>
 
         <div id="banner">

@@ -4,8 +4,6 @@
  * Date: 5/22/17
  */
 
-include "php/Utility/config.php";
-
 class Schedule {
     public function generateSchedule() {
         $connection = new mysqli(Config::$dbHost, Config::$dbUsername, Config::$dbPass, Config::$dbName);
@@ -54,6 +52,8 @@ class Schedule {
 
         echo "</table>";
 
+        $connection->close();
+
     }
     public static function addEvent() {
 
@@ -65,7 +65,7 @@ class Schedule {
             die("Connection Failed: " . $connection->connect_error);
         }
 
-        $query = "DELETE FROM " . Config::$dbName . "." . Config::$dbTableName . " WHERE Id=" . $id;
+        $query = "DELETE FROM " . Config::$dbName . "." . Config::$dbTableName . " WHERE Id LIKE " . $id;
 
         if($connection->query($query) == TRUE) {
             echo "Event deleted sucessfully";
@@ -73,6 +73,8 @@ class Schedule {
         else {
             echo "Event deletion failed";
         }
+
+        $connection->close();
     }
     public static function numberToDay($day_number) {
         switch ($day_number) {

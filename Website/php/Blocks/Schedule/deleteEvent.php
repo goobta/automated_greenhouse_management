@@ -1,5 +1,14 @@
-<?php
-/**
- * www.github.com/agupta231
- * Date: 5/25/17
- */
+<html>
+<head>
+    <title>Delete Watering Event | PingreenHouse</title>
+</head>
+<body>
+    <?php
+        include "schedule.php";
+        include "../../Utility/config.php";
+
+        $id = $_GET['id'];
+
+        Schedule::deleteEvent($id);
+    ?>
+</body>
