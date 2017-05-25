@@ -58,6 +58,22 @@ class Schedule {
     public static function addEvent() {
 
     }
+    public static function deleteEvent($id) {
+        $connection = new mysqli(Config::$dbHost, Config::$dbUsername, Config::$dbPass, Config::$dbName);
+
+        if($connection->connect_error) {
+            die("Connection Failed: " . $connection->connect_error);
+        }
+
+        $query = "DELETE FROM " . Config::$dbName . "." . Config::$dbTableName . " WHERE Id=" . $id;
+
+        if($connection->query($query) == TRUE) {
+            echo "Event deleted sucessfully";
+        }
+        else {
+            echo "Event deletion failed";
+        }
+    }
     public static function numberToDay($day_number) {
         switch ($day_number) {
             case 0:
