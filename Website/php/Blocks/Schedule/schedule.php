@@ -39,10 +39,10 @@ class Schedule {
 
                 foreach($dayData as $row) {
                     echo "<tr>";
-                    echo "<td>" . Schedule::number_to_day($row["Weekday"]) . "</td>";
+                    echo "<td>" . Schedule::numberToDay($row["Weekday"]) . "</td>";
                     echo "<td>" . $row["StartTime"] . "</td>";
                     echo "<td>" . $row["Duration"] . "</td>";
-                    echo "<td><a href='php/Blocks/Schedule/editEventForm.php?id=" . $row['Id'] . "&wd=" . $row['Weekday'] . "&st=" . $row['StartTime'] . "&dur=" . $row['Duration'] . "'>Edit</a></td>";
+                    echo "<td><a href='php/Blocks/Schedule/editEventForm.php?id=" . $row['Id'] . "&wd=" . $row['Weekday'] . "&st=" . $row['StartTime'] . "&dur=" . $row['Duration'] . "&bn=" . $i . "'>Edit</a></td>";
                     echo "</tr>";
                 }
 
@@ -58,7 +58,7 @@ class Schedule {
     public static function addEvent() {
 
     }
-    public static function number_to_day($day_number) {
+    public static function numberToDay($day_number) {
         switch ($day_number) {
             case 0:
                 return "Sunday";
@@ -81,5 +81,14 @@ class Schedule {
             case 6:
                 return "Saturday";
         }
+    }
+    public static function minutesToSeconds($minutes, $seconds) {
+        return $minutes * 60 + $seconds;
+    }
+    public static function secondsToMinutes($rawSeconds) {
+        $minutes = floor($rawSeconds / 60);
+        $seconds = $rawSeconds - $minutes * 60;
+
+        return [$minutes, $seconds];
     }
 }
