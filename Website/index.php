@@ -29,6 +29,10 @@
         <div id="settings">
         </div>
 
+        <div id-="add_event">
+            <a href="php/Blocks/Schedule/addEventForm.php"><button>Add Watering Event</button></a>
+        </div>
+
         <div id="schedule">
             <?php
                 $schedule = new Schedule();
