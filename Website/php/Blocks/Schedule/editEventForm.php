@@ -34,6 +34,7 @@
         </select> <br />
         Start Time: <input type="time" name="startTime" value="<?php echo $startTime; ?>"/><br />
         Duration: <input type="number" name="durMinutes" value="<?php echo $durationArray[0];?>"> Minutes <input type="number" name="durSeconds" value="<?php echo $durationArray[1];?>"> Seconds <br/>
+        <input type="hidden" name="id" value="<?php echo $id; ?>" />
         <input type="submit" value="Save">
     </form>
 

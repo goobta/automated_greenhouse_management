@@ -58,6 +58,22 @@ class Schedule {
     public static function addEvent() {
 
     }
+    public static function editEvent($id, $bed, $weekDay, $startTime, $duration) {
+        $connection = new mysqli(Config::$dbHost, Config::$dbUsername, Config::$dbPass, Config::$dbName);
+
+        if($connection->connect_error) {
+            die("Connection Failed: " . $connection->connect_error);
+        }
+
+        $query = "UPDATE " . Config::$dbName . "." . Config::$dbTableName . " SET Weekday='" . $weekDay . "', Bed='" . $bed . "', StartTime='" . $startTime . "', Duration='" . $duration . "' WHERE Id='" . $id . "'";
+
+        if($connection->query($query) == TRUE) {
+            echo "Event updated successfully";
+        }
+        else {
+            echo "Event updating failed";
+        }
+    }
     public static function deleteEvent($id) {
         $connection = new mysqli(Config::$dbHost, Config::$dbUsername, Config::$dbPass, Config::$dbName);
 
