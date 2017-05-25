@@ -8,10 +8,15 @@
         $weekday = $_GET['wd'];
         $startTime = $_GET['st'];
         $duration = $_GET['dur'];
+
+        echo $id;
+        echo $weekday;
+        echo $startTime;
+        echo $duration
     ?>
 
-    <a href="index.php"><button>Go Back</button></a>
-    <a href="deleteEvent.php?id=" <?php echo $id ?>><button>Delete Event</button></a>
+    <a href="../../../index.php"><button>Go Back</button></a>
+    <?php echo '<a href="deleteEvent.php?id=' . $id . '"><button>Delete Event</button></a>'; ?>
 
 </body>
 </html>
