@@ -18,5 +18,7 @@
     <a href="../../../index.php"><button>Go Back</button></a>
     <?php echo '<a href="deleteEvent.php?id=' . $id . '"><button>Delete Event</button></a>'; ?>
 
+    <form action=""
+
 </body>
 </html>
