@@ -6,11 +6,7 @@
 
 class Schedule {
     public function generateSchedule() {
-        $connection = new mysqli(Config::$dbHost, Config::$dbUsername, Config::$dbPass, Config::$dbName);
-
-        if($connection->connect_error) {
-            die("Connection Failed: " . $connection->connect_error);
-        }
+        $connection = Schedule::createConnection();
 
         echo "<table>";
 
@@ -55,31 +51,40 @@ class Schedule {
         $connection->close();
 
     }
-    public static function addEvent() {
-        
+    public static function addEvent($beds, $days, $startTime, $duration) {
+        $connection = Schedule::createConnection();
+
+        foreach($beds as $bed) {
+            foreach($days as $day) {
+                $query = "INSERT INTO " . Config::$dbName . "." . Config::$dbTableName . " (StartTime, WeekDay, Duration, Bed) VALUES('" . $startTime . "', '" . $day . "', '" . $duration . "', '" . $bed . "');";
+
+                if($connection->query($query) == TRUE) {
+                    echo "Event added successfully <br>";
+                }
+                else {
+                    echo "Event addition failed <br>";
+                }
+            }
+        }
+
+        $connection->close();
     }
     public static function editEvent($id, $bed, $weekDay, $startTime, $duration) {
-        $connection = new mysqli(Config::$dbHost, Config::$dbUsername, Config::$dbPass, Config::$dbName);
-
-        if($connection->connect_error) {
-            die("Connection Failed: " . $connection->connect_error);
-        }
+        $connection = Schedule::createConnection();
 
         $query = "UPDATE " . Config::$dbName . "." . Config::$dbTableName . " SET Weekday='" . $weekDay . "', Bed='" . $bed . "', StartTime='" . $startTime . "', Duration='" . $duration . "' WHERE Id='" . $id . "'";
 
         if($connection->query($query) == TRUE) {
-            echo "Event updated successfully";
+            echo "Event updated successfully <br>";
         }
         else {
-            echo "Event updating failed";
+            echo "Event updating failed <br>";
         }
+
+        $connection->close();
     }
     public static function deleteEvent($id) {
-        $connection = new mysqli(Config::$dbHost, Config::$dbUsername, Config::$dbPass, Config::$dbName);
-
-        if($connection->connect_error) {
-            die("Connection Failed: " . $connection->connect_error);
-        }
+        $connection = Schedule::createConnection();
 
         $query = "DELETE FROM " . Config::$dbName . "." . Config::$dbTableName . " WHERE Id LIKE " . $id;
 
@@ -124,5 +129,14 @@ class Schedule {
         $seconds = $rawSeconds - $minutes * 60;
 
         return [$minutes, $seconds];
+    }
+    public static function createConnection() {
+        $connection = new mysqli(Config::$dbHost, Config::$dbUsername, Config::$dbPass, Config::$dbName);
+
+        if($connection->connect_error) {
+            die("Connection Failed: " . $connection->connect_error);
+        }
+
+        return $connection;
     }
 }
