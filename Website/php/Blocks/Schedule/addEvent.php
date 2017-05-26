@@ -14,5 +14,9 @@
 
         Schedule::addEvent($beds, $days, $startTime, $duration);
     ?>
+
+    <script type="text/javascript">
+        window.location = "../../../index.php";
+    </script>
 </body>
 </html>
