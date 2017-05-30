@@ -11,13 +11,15 @@ const int bedPins[] = {
                         7  //Bed 6
                       };
 
-int jobs[15][2];
-int queue[15][2];
+int jobs[20][2];
+int queue[20][2];
 
 int pressurized = false;
 
 int activeJobs = 0;
 int queuedJobs = 0;
+
+const int overflowLimit = 4294967295;
 
 void setup() {
   Serial.begin(115200);
@@ -31,20 +33,44 @@ void parseSerial(String input) {}
 
 void pressurizeSystem() {}
 
+void pressurizeSystem() {}
+
+void determineEndTime(int startTime, int duration) {
+  if(startTime + duration > overflowLimit) {
+    return duration - (overflowLimit - startTime);
+  }
+  else {
+    return startTime + duration;
+  }
+}
+
 void loop() {
   if(Serial.available()) {
-    if(parseSerial(Serial.readString())[0] == "water") {
-        for(int i = sizeof(timingArray) - 1; i >= 0, i--) {
-          timingArray[i] = timingArray[i + 1];
+    input_array = parseSerial(Serial.readString();)
+
+    if(input_array[0] == "water") {
+        for(int i = queuedJobs; i > 0; i--) {
+          queue[i] = queue[i - 1];
         }
 
-        // Add new job to the queue
+        queue[0][0] = input_array[1];
+        queue[0][1] = input_array[2];
+
+        queuedJobs++;
     }
 
     if(queuedJobs > 0) {
         if(pressurized) {
-            // reorganize jobs
-            // add queuedJobs to activeJobs
+          for(int i = 0; i < queuedJobs; i++) {
+            jobs[activeJobs + i][0] = queue[i][0];
+            jobs[activeJobs + i][1] = determineEndTime(millis(), queue[i][1]);
+
+            digitalWrite(bedPins[queue[i][0] - 1], HIGH);
+            queue[i][0] = -1;
+
+            activeJobs++;
+            queuedJobs--;
+          }
         }
         else {
           pressurizeSystem();
@@ -55,7 +81,7 @@ void loop() {
 
       for(int i = 0; i < activeJobs; i++) {
         if(millis() >= jobs[i][1]) {
-          jobs[i][0] = 0;
+          jobs[i][0] = -1;
           activeJobs--;
         }
       }
@@ -64,6 +90,11 @@ void loop() {
         //reorganize the array
       }
     }
+
+    if(activeJobs == 0 && queuedJobs == 0 && pressurized) {
+      depressurizeSystem();
+    }
+
     delay(50);
   }
 }
