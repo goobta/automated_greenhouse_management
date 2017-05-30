@@ -11,10 +11,33 @@ const int bedPins[] = {
                         7  //Bed 6
                       };
 
+int timingArray[15][2];
+int pressurized = false;
+
 void setup() {
   Serial.begin(9600);
+
+  for(int i = 0; i < sizeof(bedPins); i++) {
+    pinMode(bedPins[i], OUTPUT);
+  }
 }
 
-void loop() {
+void parseSerial(String input) {}
 
+void pressurizeSystem() {}
+
+void loop() {
+  if(Serial.available()) {
+    if(parseSerial(Serial.readString())[0] == "water") {
+        for(int i = 0; i < sizeof(timingArray), i++) {
+          
+        }
+      
+        if(!pressurized) {
+          pressurizeSystem();
+        }
+    }
+    
+    delay(50);  
+  }
 }
