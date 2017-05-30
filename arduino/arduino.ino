@@ -29,7 +29,29 @@ void setup() {
   }
 }
 
-void parseSerial(String input) {}
+void parseSerial(String input) {
+  char separator = "|";
+
+  String valuesArray[3];
+  int currentArrayIndex = 0;
+
+  int lastIndex = 0;
+
+  for(int i = 0; i < input.length(); i++) {
+    if(input.charAt(i) == separator) {
+        valuesArray[currentArrayIndex] = input.substring(lastIndex, i);
+
+        currentArrayIndex++;
+        lastIndex = i + 1;
+
+        if(currentArrayIndex == 2) {
+          break;
+        }
+    }
+  }
+
+  return valuesArray;
+}
 
 void pressurizeSystem() {}
 
@@ -53,8 +75,8 @@ void loop() {
           queue[i] = queue[i - 1];
         }
 
-        queue[0][0] = input_array[1];
-        queue[0][1] = input_array[2];
+        queue[0][0] = input_array[1].toInt();
+        queue[0][1] = input_array[2].toInt();
 
         queuedJobs++;
     }
