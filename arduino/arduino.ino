@@ -35,12 +35,10 @@ void setup() {
   }
 }
 
-void parseSerial(String input) {
+void parseSerial(String input, String valuesArray[]) {
   char separator = "|";
 
-  String valuesArray[3];
   int currentArrayIndex = 0;
-
   int lastIndex = 0;
 
   for(int i = 0; i < input.length(); i++) {
@@ -55,13 +53,11 @@ void parseSerial(String input) {
         }
     }
   }
-
-  return valuesArray;
 }
 
 void pressurizeSystem(int inputPressure) {}
 
-void determineEndTime(int startTime, int duration) {
+int determineEndTime(int startTime, int duration) {
   if(startTime + duration > overflowLimit) {
     return duration - (overflowLimit - startTime);
   }
@@ -72,11 +68,13 @@ void determineEndTime(int startTime, int duration) {
 
 void loop() {
   if(Serial.available()) {
-    input_array = parseSerial(Serial.readString();)
+    String input_array[3];
+    parseSerial(Serial.readString(), input_array);
 
     if(input_array[0] == "water") {
         for(int i = queuedJobs; i > 0; i--) {
-          queue[i] = queue[i - 1];
+          queue[i][0] = queue[i - 1][0];
+          queue[i][1] = queue[i - 1][1];
         }
 
         queue[0][0] = input_array[1].toInt();
@@ -120,8 +118,10 @@ void loop() {
         for(int i = 0; i < sizeof(jobs) - 1; i++) {
           if(jobs[i][0] == -1) {
             for(int j = i + 1; j < sizeof(jobs) - 1; j++) {
-              jobs[i] = jobs[j];
-              jobs[j] = -1;
+              jobs[i][0] = jobs[j][0];
+              jobs[i][1] = jobs[j][1];
+              
+              jobs[j][0] = -1;
 
               break;
             }
