@@ -12,6 +12,8 @@ const int bedPins[] = {
                         7  //Bed 6
                       };
 
+const int outletPin = 10;
+
 const int overflowLimit = 4294967295;
 const int pressure_flag = 40;
 
