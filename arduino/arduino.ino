@@ -11,11 +11,16 @@ const int bedPins[] = {
                         7  //Bed 6
                       };
 
-int timingArray[15][2];
+int jobs[15][2];
+int queue[15][2];
+
 int pressurized = false;
 
+int activeJobs = 0;
+int queuedJobs = 0;
+
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
 
   for(int i = 0; i < sizeof(bedPins); i++) {
     pinMode(bedPins[i], OUTPUT);
@@ -29,15 +34,36 @@ void pressurizeSystem() {}
 void loop() {
   if(Serial.available()) {
     if(parseSerial(Serial.readString())[0] == "water") {
-        for(int i = 0; i < sizeof(timingArray), i++) {
-          
+        for(int i = sizeof(timingArray) - 1; i >= 0, i--) {
+          timingArray[i] = timingArray[i + 1];
         }
-      
-        if(!pressurized) {
+
+        // Add new job to the queue
+    }
+
+    if(queuedJobs > 0) {
+        if(pressurized) {
+            // reorganize jobs
+            // add queuedJobs to activeJobs
+        }
+        else {
           pressurizeSystem();
         }
     }
-    
-    delay(50);  
+    if(activeJobs > 0) {
+      boolean reorganizeArray = false;
+
+      for(int i = 0; i < activeJobs; i++) {
+        if(millis() >= jobs[i][1]) {
+          jobs[i][0] = 0;
+          activeJobs--;
+        }
+      }
+
+      if(reorganizeArray) {
+        //reorganize the array
+      }
+    }
+    delay(50);
   }
 }
