@@ -81,13 +81,26 @@ void loop() {
 
       for(int i = 0; i < activeJobs; i++) {
         if(millis() >= jobs[i][1]) {
+          digitalWrite(jobs[i][0] - 1, LOW);
+
           jobs[i][0] = -1;
           activeJobs--;
+
+          reorganizeArray = true;
         }
       }
 
       if(reorganizeArray) {
-        //reorganize the array
+        for(int i = 0; i < sizeof(jobs) - 1; i++) {
+          if(jobs[i][0] == -1) {
+            for(int j = i + 1; j < sizeof(jobs) - 1; j++) {
+              jobs[i] = jobs[j];
+              jobs[j] = -1;
+
+              break;
+            }
+          }
+        }
       }
     }
 
