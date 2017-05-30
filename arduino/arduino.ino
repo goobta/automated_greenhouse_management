@@ -2,6 +2,7 @@
 // www.github.com/agupta231
 // May 26, 2017
 
+// User Editable Flags
 const int bedPins[] = {
                         2, //Bed 1
                         3, //Bed 2
@@ -11,15 +12,18 @@ const int bedPins[] = {
                         7  //Bed 6
                       };
 
+const int overflowLimit = 4294967295;
+const int pressure_flag = 40;
+
+// Variables used by the system
 int jobs[20][2];
 int queue[20][2];
-
-int pressurized = false;
 
 int activeJobs = 0;
 int queuedJobs = 0;
 
-const int overflowLimit = 4294967295;
+int pressurized = false;
+int pressure = 0;
 
 void setup() {
   Serial.begin(115200);
@@ -53,9 +57,7 @@ void parseSerial(String input) {
   return valuesArray;
 }
 
-void pressurizeSystem() {}
-
-void pressurizeSystem() {}
+void pressurizeSystem(int inputPressure) {}
 
 void determineEndTime(int startTime, int duration) {
   if(startTime + duration > overflowLimit) {
@@ -95,7 +97,7 @@ void loop() {
           }
         }
         else {
-          pressurizeSystem();
+          pressure = pressure_flag;
         }
     }
     if(activeJobs > 0) {
@@ -127,9 +129,10 @@ void loop() {
     }
 
     if(activeJobs == 0 && queuedJobs == 0 && pressurized) {
-      depressurizeSystem();
+      pressure = 0;
     }
 
+    pressurizeSystem(pressure);
     delay(50);
   }
 }
