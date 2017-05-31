@@ -6,7 +6,7 @@
 
 class Schedule {
     public function generateSchedule() {
-        $connection = Schedule::createConnection();
+        $connection = Config::createConnection();
 
         echo "<table>";
 
@@ -52,7 +52,7 @@ class Schedule {
 
     }
     public static function addEvent($beds, $days, $startTime, $duration) {
-        $connection = Schedule::createConnection();
+        $connection = Config::createConnection();
 
         foreach($beds as $bed) {
             foreach($days as $day) {
@@ -70,7 +70,7 @@ class Schedule {
         $connection->close();
     }
     public static function editEvent($id, $bed, $weekDay, $startTime, $duration) {
-        $connection = Schedule::createConnection();
+        $connection = Config::createConnection();
 
         $query = "UPDATE " . Config::$dbName . "." . Config::$dbTableName . " SET Weekday='" . $weekDay . "', Bed='" . $bed . "', StartTime='" . $startTime . "', Duration='" . $duration . "' WHERE Id='" . $id . "'";
 
@@ -84,7 +84,7 @@ class Schedule {
         $connection->close();
     }
     public static function deleteEvent($id) {
-        $connection = Schedule::createConnection();
+        $connection = Config::createConnection();
 
         $query = "DELETE FROM " . Config::$dbName . "." . Config::$dbTableName . " WHERE Id LIKE " . $id;
 
@@ -121,6 +121,30 @@ class Schedule {
                 return "Saturday";
         }
     }
+    public static function dayToNumber($day) {
+        switch ($day) {
+            case "Sunday":
+                return 0;
+
+            case "Monday":
+                return 1;
+
+            case "Tuesday":
+                return 2;
+
+            case "Wednesday":
+                return 3;
+
+            case "Thursday":
+                return 4;
+
+            case "Friday":
+                return 5;
+
+            case "Saturday":
+                return 6;
+        }
+    }
     public static function minutesToSeconds($minutes, $seconds) {
         return $minutes * 60 + $seconds;
     }
@@ -129,14 +153,5 @@ class Schedule {
         $seconds = $rawSeconds - $minutes * 60;
 
         return [$minutes, $seconds];
-    }
-    public static function createConnection() {
-        $connection = new mysqli(Config::$dbHost, Config::$dbUsername, Config::$dbPass, Config::$dbName);
-
-        if($connection->connect_error) {
-            die("Connection Failed: " . $connection->connect_error);
-        }
-
-        return $connection;
     }
 }

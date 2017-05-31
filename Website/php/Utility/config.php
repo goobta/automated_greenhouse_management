@@ -16,4 +16,14 @@ class Config {
     public static $dbTableName = "Events";
 
     public static $bedCount = 6;
+
+    public static function createConnection() {
+        $connection = new mysqli(Config::$dbHost, Config::$dbUsername, Config::$dbPass, Config::$dbName);
+
+        if($connection->connect_error) {
+            die("Connection Failed: " . $connection->connect_error);
+        }
+
+        return $connection;
+    }
 }
