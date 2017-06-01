@@ -36,19 +36,19 @@ void setup() {
 }
 
 void parseSerial(String input, String valuesArray[]) {
-  char separator = "|";
+  char separator = '|';
 
   int currentArrayIndex = 0;
   int lastIndex = 0;
 
-  for(int i = 0; i < input.length(); i++) {
-    if(input.charAt(i) == separator) {
+  for(int i = 0; i < input.length(); i++) {    
+    if(input.charAt(i) == separator) {      
         valuesArray[currentArrayIndex] = input.substring(lastIndex, i);
-
+        
         currentArrayIndex++;
         lastIndex = i + 1;
 
-        if(currentArrayIndex == 2) {
+        if(currentArrayIndex == 3) {
           break;
         }
     }
@@ -67,9 +67,15 @@ int determineEndTime(int startTime, int duration) {
 }
 
 void loop() {
-  if(Serial.available()) {
-    String input_array[3];
-    parseSerial(Serial.readString(), input_array);
+  if(Serial.available() > 0) {
+    String inputString = Serial.readString();
+    String input_array[] = {"vape", "", ""};
+
+    Serial.println(inputString);
+    
+    parseSerial(inputString, input_array);
+
+    Serial.println(input_array[0]);
 
     if(input_array[0] == "water") {
         for(int i = queuedJobs; i > 0; i--) {
@@ -81,9 +87,14 @@ void loop() {
         queue[0][1] = input_array[2].toInt();
 
         queuedJobs++;
+        Serial.println(queue[0][0]);
+        Serial.println(queue[0][1]);
+        Serial.println(queue[1][0]);
+        Serial.println(queue[1][1]);
     }
+  }
 
-    if(queuedJobs > 0) {
+  if(queuedJobs > 0) {
         if(pressurized) {
           for(int i = 0; i < queuedJobs; i++) {
             jobs[activeJobs + i][0] = queue[i][0];
@@ -136,5 +147,4 @@ void loop() {
 
     pressurizeSystem(pressure);
     delay(50);
-  }
 }
