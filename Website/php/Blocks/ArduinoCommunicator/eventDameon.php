@@ -17,6 +17,6 @@ $result = $connection->query($query);
 
 if($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
-        exec("python " . getcwd() . "/../../../../Python/sendWateringEvent.py " . $row["Bed"] . " " . $row["Duration"]);
+        exec("python ~/Documents/automated_greenhouse_management/Python/sendWateringEvent.py " . $row["Bed"] . " " . $row["Duration"]);
     }
 }
