@@ -7,7 +7,7 @@ import RPi.GPIO as GPIO
 outlet_pin = 3
 pressure_prime = 10
 
-bed_pins = [7, 11, 13, 15]
+bed_pins = [3, 5, 7, 11]
 
 bed_number = int(sys.argv[1])
 duration = int(sys.argv[2])
