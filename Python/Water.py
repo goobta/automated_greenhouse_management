@@ -38,7 +38,7 @@ if(len(glob.glob(os.path.dirname(os.path.realpath(__file__)) + "/id_files/*")) =
 	GPIO.output(outlet_pin, False)
 
 	with open(os.path.dirname(os.path.realpath(__file__)) + "/pressure.txt", "r+") as pressure_file:
-		pressure_file.seak(0)
+		pressure_file.seek(0)
 		pressure_file.write("0")
 		pressure_file.truncate()
 
