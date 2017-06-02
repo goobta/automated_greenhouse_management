@@ -21,7 +21,7 @@ open(os.path.dirname(os.path.realpath(__file__)) + "/id_files/" + str(bed_number
 pressure_file = open(os.path.dirname(os.path.realpath(__file__)) + "/pressure.txt", "r+")
 	
 if pressure_file.readline() == "0":
-	pressure_file.seak(0)
+	pressure_file.seek(0)
 	pressure_file.write("1")
 	pressure_file.truncate()
 
