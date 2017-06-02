@@ -71,8 +71,6 @@ void loop() {
   if(Serial.available() > 0) {
     String inputString = Serial.readString();
     String input_array[] = {"vape", "", ""};
-
-    Serial.println(inputString);
     
     parseSerial(inputString, input_array);
 
@@ -88,33 +86,20 @@ void loop() {
         queuedJobs++;
     }
     else if(input_array[0] == "pressure") {
-      Serial.println("In the if");
       pressurized = true;
 
       delay(50);
     }
   }
 
-  if(queuedJobs > 0) {
-        for(int i = 0; i < queuedJobs; i++) {
-          Serial.print(i);
-          Serial.print(": ");
-          Serial.print(queue[i][0]);
-          Serial.print(" ");
-          Serial.println(queue[i][1]);
-        }
-        
+  if(queuedJobs > 0) {       
         if(pressurized) {
-          Serial.println("IN this if");
-          
           for(int i = 0; i < queuedJobs; i++) {
             jobs[activeJobs + i][0] = queue[i][0];
             jobs[activeJobs + i][1] = determineEndTime(millis(), queue[i][1]);
 
             digitalWrite(bedPins[queue[i][0] - 1], HIGH);
             queue[i][0] = -1;
-            
-            Serial.println(activeJobs);
           }
           activeJobs += queuedJobs;
           queuedJobs = 0;
@@ -124,26 +109,11 @@ void loop() {
         }
     }
     if(activeJobs > 0) {
-      Serial.print("Active Jobs: ");
-      Serial.println(activeJobs);
-      
-      Serial.println("----");
-      Serial.print("Current time: ");
-      Serial.println(millis());
-      
       boolean reorganizeArray = false;
-
-      for(int i = 0; i < sizeof(jobs)/sizeof(jobs[0]); i++) {
-        Serial.print(i);
-        Serial.print(": ");
-        Serial.print(jobs[i][0]);
-        Serial.print(" ");
-        Serial.println(jobs[i][1]);
-      }
 
       for(int i = 0; i < activeJobs; i++) {      
         if(millis() >= jobs[i][1]) {
-          digitalWrite(jobs[i][0] - 1, LOW);
+          digitalWrite(bedPins[jobs[i][0] - 1], LOW);
 
           jobs[i][0] = -1;
           activeJobs--;
@@ -152,14 +122,8 @@ void loop() {
         }
       }
 
-      if(reorganizeArray) {
-        Serial.println("ruh roo");
-                
+      if(reorganizeArray) {                
         for(int i = 0; i < sizeof(jobs)/sizeof(jobs[0]) - 1; i++) {
-            Serial.print(i);
-            Serial.print(": ");
-            Serial.println(jobs[i][0]);
-          
           if(jobs[i][0] == -1) {
             for(int j = i; j < sizeof(jobs)/sizeof(jobs[0]) - 1; j++) {
               jobs[j][0] = jobs[j + 1][0];
@@ -169,15 +133,6 @@ void loop() {
             jobs[sizeof(jobs)/sizeof(jobs[0]) - 1][0] = -1;
             jobs[sizeof(jobs)/sizeof(jobs[0]) - 1][1] = 0;
           }
-        }
-
-        Serial.println("Reorganized: ");
-        for(int i = 0; i < sizeof(jobs) / sizeof(jobs[0]); i++) {
-          Serial.print(i);
-          Serial.print(": ");
-          Serial.print(jobs[i][0]);
-          Serial.print(" ");
-          Serial.println(jobs[i][1]);
         }
       }
     }
