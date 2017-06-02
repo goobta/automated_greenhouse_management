@@ -59,7 +59,7 @@ void parseSerial(String input, String valuesArray[]) {
 void pressurizeSystem(int inputPressure) {}
 
 int determineEndTime(int duration) {
-  unsigned int startTime = millis();
+  unsigned long startTime = millis();
 
   Serial.println(startTime);
   Serial.println(duration);
@@ -149,6 +149,5 @@ void loop() {
   }
 
   pressurizeSystem(pressure);
-  Serial.println(millis());
   delay(50);
 }
