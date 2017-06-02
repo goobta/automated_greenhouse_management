@@ -4,10 +4,10 @@ import time
 
 ser = serial.Serial('/dev/cu.usbmodem1421', 115200)
 
-bed_number = sys.argv[0]
-duration = sys.argv[1]
+bed_number = sys.argv[1]
+duration = sys.argv[2]
 
-log_file = fopen("log_file_" + str(time.strftime("%H:%M:%S")) + ".txt", "a+")
+log_file = open("log_file_" + str(time.strftime("%H:%M:%S")) + ".txt", "a+")
 
 log_file.write("water|" + str(bed_number) + "|" + str(duration) + "|")
 

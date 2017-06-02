@@ -11,8 +11,6 @@
         <input type="checkbox" name="beds[]" value="2">2<br />
         <input type="checkbox" name="beds[]" value="3">3<br />
         <input type="checkbox" name="beds[]" value="4">4<br />
-        <input type="checkbox" name="beds[]" value="5">5<br />
-        <input type="checkbox" name="beds[]" value="6">6<br />
 
         Days: <br />
         <input type="checkbox" name="days[]" value="0">Sunday<br />
