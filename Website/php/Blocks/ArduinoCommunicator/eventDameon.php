@@ -4,8 +4,10 @@
  * Date: 5/30/17
  */
 
-include "../../Utility/config.php";
-include "../Schedule/schedule.php";
+print getcwd();
+
+include (dirname(__FILE__) . "/../../Utility/config.php");
+include (dirname(__FILE__) . "/../Schedule/schedule.php");
 
 $connection = Config::createConnection();
 
@@ -17,6 +19,8 @@ $result = $connection->query($query);
 
 if($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
-        exec("python ~/Documents/automated_greenhouse_management/Python/sendWateringEvent.py " . $row["Bed"] . " " . $row["Duration"]);
+        exec("python " . dirname(__FILE__) . "/../../../../Python/Water.py " . $row["Bed"] . " " . $row["Duration"] . " > /dev/null 2>/dev/null &");
+
+        sleep(3);
     }
 }

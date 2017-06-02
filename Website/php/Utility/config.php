@@ -12,10 +12,10 @@ class Config {
     public static $dbUsername = 'root';
     public static $dbPass = 'root';
 
-    public static $dbName = 'PingreenHouse';
-    public static $dbTableName = "Events";
+    public static $dbName = 'pingreenhouse';
+    public static $dbTableName = "events";
 
-    public static $bedCount = 4;
+    public static $bedCount = 6;
 
     public static function createConnection() {
         $connection = new mysqli(Config::$dbHost, Config::$dbUsername, Config::$dbPass, Config::$dbName);
@@ -27,3 +27,4 @@ class Config {
         return $connection;
     }
 }
+
