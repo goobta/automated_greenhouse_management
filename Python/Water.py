@@ -28,7 +28,7 @@ if pressure_file.readline() == "0":
 
 GPIO.output(bed_pins[bed_number - 1], True)
 
-time.sleep(duration * 60)
+time.sleep(duration)
 
 GPIO.output(bed_pins[bed_number - 1], False)
 
