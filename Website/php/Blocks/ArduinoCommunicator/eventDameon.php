@@ -19,7 +19,7 @@ $result = $connection->query($query);
 
 if($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
-        exec("python " . dirname(__FILE__) . "/../../../../Python/Water.py " . $row["Bed"] . " " . $row["Duration"] . " > /dev/null 2>/dev/null &");
+        exec("/usr/bin/python " . dirname(__FILE__) . "/var/www/html/python/Water.py " . $row["Bed"] . " " . $row["Duration"] . " > /dev/null 2>/dev/null &");
 
         sleep(3);
     }
