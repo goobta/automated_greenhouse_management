@@ -14,7 +14,7 @@
         $duration = Schedule::minutesToSeconds($minutes, $seconds);
 
         foreach($beds as $bed) {
-            exec("python /home/pi/Documents/automated_greenhouse_management/Python/Water.py " . $bed . " " . $duration . " > /dev/null 2>/dev/null &");
+            exec("/usr/bin/python /home/pi/Documents/automated_greenhouse_management/Python/Water.py " . $bed . " " . $duration . " > /dev/null 2>/dev/null &");
 
             sleep(1);
         }
