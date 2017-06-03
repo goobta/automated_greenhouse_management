@@ -14,7 +14,10 @@ $connection = Config::createConnection();
 $currentDay = Schedule::dayToNumber(date("l"));
 $currentTime = date("H:i") . ":00";
 
-$query = "SELECT Bed, Duration FROM " . Config::$dbName . "." . Config::$dbTableName . "WHERE WeekDay LIKE " . $currentDay . " AND StartTime LIKE " . $currentTime;
+$query = "SELECT Bed, Duration FROM " . Config::$dbName . "." . Config::$dbTableName . "WHERE WeekDay LIKE " . $currentDay . " AND StartTime LIKE '" . $currentTime . "'";
+
+print $query;
+
 $result = $connection->query($query);
 
 if($result->num_rows > 0) {
