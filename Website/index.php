@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="css/main.css" type="text/css">
     <link rel="stylesheet" href="css/main.css" type="text/css">
 
-    <script src="scripts/schedule.js"></script>
+    <script src="scripts/jquery.min.js"></script>
 
 </head>
 <body>
@@ -36,16 +36,22 @@
         <br>
 
         <div id="quick_water">
-            <form >
-                Beds: <br />
-                <?php
-                    for($i = 1; $i <= Config::$bedCount; $i++) {
-                        echo "<input type=\"checkbox\" name=\"beds[]\" value=\"" . $i  ."\">" . $i . "<br />";
-                    }
-                ?>
+            <form action="php/Blocks/QuickWater/quickWater.php" method="POST">
+                <fieldset>
+                    <legend><h3>Quick Water</h3></legend>
 
-                Duration: <input type="number" name="durMinutes"> Minutes <input type="number" name="durSeconds" /> Seconds <br>
-                <input type="submit" value="Send Job">
+                    Beds: <br />
+                    <?php
+                        for($i = 1; $i <= Config::$bedCount; $i++) {
+                            echo "<input type=\"checkbox\" name=\"beds[]\" value=\"" . $i  ."\">" . $i . "<br />";
+                        }
+                    ?>
+
+                    <br />
+
+                    Duration: <input type="number" name="durMinutes"> Minutes <input type="number" name="durSeconds" /> Seconds <br>
+                    <input type="submit" value="Send Job">
+                </fieldset>
             </form>
         </div>
     </div>

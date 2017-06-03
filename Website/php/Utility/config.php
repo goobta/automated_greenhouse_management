@@ -15,7 +15,7 @@ class Config {
     public static $dbName = 'pingreenhouse';
     public static $dbTableName = "events";
 
-    public static $bedCount = 6;
+    public static $bedCount = 4;
 
     public static function createConnection() {
         $connection = new mysqli(Config::$dbHost, Config::$dbUsername, Config::$dbPass, Config::$dbName);

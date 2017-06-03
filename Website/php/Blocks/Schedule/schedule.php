@@ -35,7 +35,7 @@ class Schedule {
                     echo "<tr>";
                     echo "<td>" . Schedule::numberToDay($row["Weekday"]) . "</td>";
                     echo "<td>" . $row["StartTime"] . "</td>";
-                    echo "<td>" . $row["Duration"] . "</td>";
+                    echo "<td>" . Schedule::secondsToMinutes($row["Duration"])[0] . " Min ". Schedule::secondsToMinutes($row["Duration"])[1] ." Sec</td>";
                     echo "<td><a href='php/Blocks/Schedule/editEventForm.php?id=" . $row['Id'] . "&wd=" . $row['Weekday'] . "&st=" . $row['StartTime'] . "&dur=" . $row['Duration'] . "&bn=" . $i . "'>Edit</a></td>";
                     echo "</tr>";
                 }
@@ -49,7 +49,6 @@ class Schedule {
         echo "</table>";
 
         $connection->close();
-
     }
     public static function addEvent($beds, $days, $startTime, $duration) {
         $connection = Config::createConnection();

@@ -19,7 +19,9 @@
             sleep(1);
         }
 
-        echo '<a href="../../../index.php">Return to dashboard</a>';
+        echo "Job Sent <br><br>";
+
+        echo '<a href="../../../index.php"><button>Return to dashboard</button></a>';
     ?>
 </body>
 </html>
