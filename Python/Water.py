@@ -5,7 +5,6 @@ import glob
 import RPi.GPIO as GPIO
 
 outlet_pin = 3
-pressure_prime = 10
 
 bed_pins = [3, 5, 7, 11]
 
@@ -26,7 +25,6 @@ if pressure_file.readline() == "0":
 	pressure_file.truncate()
 
 	GPIO.output(outlet_pin, True)
-	time.sleep(pressure_prime)
 
 GPIO.output(bed_pins[bed_number - 1], True)
 

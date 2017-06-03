@@ -20,24 +20,33 @@
             <h1>Pingree Greenhouse Control Panel</h1>
         </div>
 
-        <div id="water_tank_status">
-        </div>
-
-        <div id="quick_water">
-        </div>
-
-        <div id="settings">
-        </div>
-
-        <div id-="add_event">
+        <div id="add_event">
             <a href="php/Blocks/Schedule/addEventForm.php"><button>Add Watering Event</button></a>
         </div>
+
+        <br>
 
         <div id="schedule">
             <?php
                 $schedule = new Schedule();
                 $schedule->generateSchedule();
             ?>
+        </div>
+
+        <br>
+
+        <div id="quick_water">
+            <form >
+                Beds: <br />
+                <?php
+                    for($i = 1; $i <= Config::$bedCount; $i++) {
+                        echo "<input type=\"checkbox\" name=\"beds[]\" value=\"" . $i  ."\">" . $i . "<br />";
+                    }
+                ?>
+
+                Duration: <input type="number" name="durMinutes"> Minutes <input type="number" name="durSeconds" /> Seconds <br>
+                <input type="submit" value="Send Job">
+            </form>
         </div>
     </div>
 
